@@ -1,0 +1,59 @@
+---
+- hosts: all
+  tasks:
+   - name: ping servers
+     ping:
+...
+httpd installation and run excute playbook
+---------------------------------------------
+---
+- hosts: all
+  become: true
+  vars:
+   CompanyName: Rajatpetrolpump.com
+   Location: jajpur Town
+  tasks:
+  - name: install Apache HTTP Server
+    yum:
+     name: httpd
+     state: latest
+  - name: Start the Apache HTTP Server
+    service:
+     name: httpd
+     state: started
+  - name: copy index.html
+    template:
+     src: index.html
+     dest: /var/www/html/index.html
+...
+ index.html
+----------
+Hello {{CompanyName}} and Location is {{Location}}
+
+
+
+
+debug
+------
+---
+- hosts: all
+  vars:
+   CompanyName: mss
+  become: true
+  tasks:
+  - name: print the message
+    debug:
+     var: CompanyName   
+...
+msg
+----
+---
+- hosts: all
+  vars:
+   CompanyName: mss
+  become: true
+  tasks:
+  - name: print the message
+    debug:
+     msg: "the company variable value is : {{ CompanyName}}"
+...
