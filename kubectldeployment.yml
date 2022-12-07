@@ -21,11 +21,11 @@ spec:
       imagePullPolicy: Always
       resources:
        requests:
-         memory: "64Mi"
-         cpu: "100m"
-       limits:
-         memory: "128Mi"
+         memory: "256Mi"
          cpu: "300m"
+       limits:
+         memory: "512Mi"
+         cpu: "400m"
       ports:
       - containerPort: 80
 
@@ -33,14 +33,14 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: php-apache
+  name:  wordpresshpa
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: mydeployment
   minReplicas: 1
-  maxReplicas: 5
+  maxReplicas: 10
   metrics:
   - type: Resource
     resource:
